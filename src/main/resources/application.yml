@@ -1,0 +1,84 @@
+logging:
+  level:
+    kz.magnum.magnumback.fastmanservice: DEBUG
+server:
+  port: 8086
+  max-http-header-size: 10MB
+spring:
+  codec:
+    max-in-memory-size: 5MB
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 10MB
+  jmx:
+    enabled: false
+  application:
+    name: fastman-service
+  datasource:
+    primary:
+      url: jdbc:postgresql://10.70.8.171:5432/postgres
+      username: stfmdb
+      password: d8RJnp6Aq0
+      jpa:
+        show-sql: false
+        properties:
+          hibernate:
+            dialect: org.hibernate.dialect.PostgreSQLDialect
+    secondary:
+      url: jdbc:oracle:thin:@//10.70.8.150:1521/goldprp.magnum.local
+      username: CEN510MGN
+      password: CEN5i84
+      driver-class-name: oracle.jdbc.OracleDriver
+    tertiary:
+      url: jdbc:postgresql://10.70.8.217:5432/portaldb
+      username: postgres
+      password: AudiQ7rulit
+      driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    datasource: primary
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    out-of-order: true
+    validate-on-migrate: true
+  kafka:
+    consumer:
+      bootstrap-servers: 10.70.8.177:9092
+      group-id: test-consumer-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+      ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          lob.non_contextual_creation: true
+
+file-storage-service:
+#  base-url: https://test-doc-storages.magnum.kz
+  upload: https://test-doc-storages.magnum.kz/api/file-storage-service/upload-file
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+  api-docs:
+    path: /v3/api-docs
+
+topic:
+  name:
+    consumer: magnum.tsd.fastman.tasks
+
+minio:
+  url: http://172.16.10.19:9000
+  access-key: admin
+  secret-key: BF6O8nCdD95c
+  bucket-name: image-superset-test

@@ -1,0 +1,61 @@
+--public
+SELECT setval('public.division_division_id_seq', (SELECT COALESCE(MAX(division_id), 1) FROM public.division));
+SELECT setval('public.reg_dir_reg_dir_id_seq', (SELECT COALESCE(MAX(reg_dir_id), 1) FROM public.reg_dir));
+SELECT setval('public.ter_dir_ter_dir_id_seq', (SELECT COALESCE(MAX(ter_dir_id), 1) FROM public.ter_dir));
+SELECT setval('public.dir_fil_dir_fil_id_seq', (SELECT COALESCE(MAX(dir_fil_id), 1) FROM public.dir_fil));
+--fastman
+SELECT setval('fastman.templates_template_id_seq', (SELECT COALESCE(MAX(template_id), 1) FROM fastman.templates));
+SELECT setval('fastman.actions_action_id_seq', (SELECT COALESCE(MAX(action_id), 1) FROM fastman.actions));
+SELECT setval('fastman.levels_level_id_seq', (SELECT COALESCE(MAX(level_id), 1) FROM fastman.levels));
+SELECT setval('fastman.statuses_status_id_seq', (SELECT COALESCE(MAX(status_id), 1) FROM fastman.statuses));
+SELECT setval('fastman.items_item_id_seq', (SELECT COALESCE(MAX(item_id), 1) FROM fastman.items));
+SELECT setval('fastman.barcodes_barcode_id_seq', (SELECT COALESCE(MAX(barcode_id), 1) FROM fastman.barcodes));
+SELECT setval('fastman.item_properties_item_property_id_seq', (SELECT COALESCE(MAX(item_property_id), 1) FROM fastman.item_properties));
+SELECT setval('fastman.suppliers_supplier_id_seq', (SELECT COALESCE(MAX(supplier_id), 1) FROM fastman.suppliers));
+SELECT setval('fastman.types_of_executions_id_of_type_seq', (SELECT COALESCE(MAX(id_of_type), 1) FROM fastman.types_of_executions));
+SELECT setval('fastman.executions_execution_id_seq', (SELECT COALESCE(MAX(execution_id), 1) FROM fastman.executions));
+SELECT setval('fastman.incidents_incident_id_seq', (SELECT COALESCE(MAX(incident_id), 1) FROM fastman.incidents));
+SELECT setval('fastman.inc_executions_inc_execution_id_seq', (SELECT COALESCE(MAX(inc_execution_id), 1) FROM fastman.inc_executions));
+SELECT setval('fastman.site_exceptions_site_exception_id_seq', (SELECT COALESCE(MAX(site_exception_id), 1) FROM fastman.site_exceptions));
+SELECT setval('fastman.inc_actions_inc_action_id_seq', (SELECT COALESCE(MAX(inc_action_id), 1) FROM fastman.inc_actions));
+SELECT setval('fastman.fastman_tasks_fastman_task_id_seq', (SELECT COALESCE(MAX(fastman_task_id), 1) FROM fastman.fastman_tasks));
+--checklist
+SELECT setval('checklist.checklists_templates_id_template_seq', (SELECT COALESCE(MAX(id_template), 1) FROM checklist.checklists_templates));
+SELECT setval('checklist.checklists_head_id_head_seq', (SELECT COALESCE(MAX(id_head_temp), 1) FROM checklist.checklist_head_temps));
+SELECT setval('checklist.checklists_head_statuses_id_head_status_seq', (SELECT COALESCE(MAX(id_head_status), 1) FROM checklist.checklists_head_statuses));
+SELECT setval('checklist.checklists_chapter_id_chapter_seq', (SELECT COALESCE(MAX(id_chapter), 1) FROM checklist.checklists_chapter));
+SELECT setval('checklist.checklists_types_of_answers_id_type_seq', (SELECT COALESCE(MAX(id_type), 1) FROM checklist.checklists_types_of_answers));
+SELECT setval('checklist.checklists_questions_id_question_seq', (SELECT COALESCE(MAX(id_question), 1) FROM checklist.checklist_question_temps));
+SELECT setval('checklist.checklists_question_statuses_id_question_status_seq', (SELECT COALESCE(MAX(id_question_status), 1) FROM checklist.checklists_question_statuses));
+SELECT setval('checklist.checklists_head_tasks_id_head_task_seq', (SELECT COALESCE(MAX(id_head), 1) FROM checklist.checklists_head));
+SELECT setval('checklist.checklists_questions_tasks_id_questions_task_seq', (SELECT COALESCE(MAX(id_questions_task), 1) FROM checklist.checklists_questions));--public
+SELECT setval('public.division_division_id_seq', (SELECT COALESCE(MAX(division_id), 1) FROM public.division));
+SELECT setval('public.reg_dir_reg_dir_id_seq', (SELECT COALESCE(MAX(reg_dir_id), 1) FROM public.reg_dir));
+SELECT setval('public.ter_dir_ter_dir_id_seq', (SELECT COALESCE(MAX(ter_dir_id), 1) FROM public.ter_dir));
+SELECT setval('public.dir_fil_dir_fil_id_seq', (SELECT COALESCE(MAX(dir_fil_id), 1) FROM public.dir_fil));
+--fastman
+SELECT setval('fastman.templates_template_id_seq', (SELECT COALESCE(MAX(template_id), 1) FROM fastman.templates));
+SELECT setval('fastman.actions_action_id_seq', (SELECT COALESCE(MAX(action_id), 1) FROM fastman.actions));
+SELECT setval('fastman.levels_level_id_seq', (SELECT COALESCE(MAX(level_id), 1) FROM fastman.levels));
+SELECT setval('fastman.statuses_status_id_seq', (SELECT COALESCE(MAX(status_id), 1) FROM fastman.statuses));
+SELECT setval('fastman.items_item_id_seq', (SELECT COALESCE(MAX(item_id), 1) FROM fastman.items));
+SELECT setval('fastman.barcodes_barcode_id_seq', (SELECT COALESCE(MAX(barcode_id), 1) FROM fastman.barcodes));
+SELECT setval('fastman.item_properties_item_property_id_seq', (SELECT COALESCE(MAX(item_property_id), 1) FROM fastman.item_properties));
+SELECT setval('fastman.suppliers_supplier_id_seq', (SELECT COALESCE(MAX(supplier_id), 1) FROM fastman.suppliers));
+SELECT setval('fastman.types_of_executions_id_of_type_seq', (SELECT COALESCE(MAX(id_of_type), 1) FROM fastman.types_of_executions));
+SELECT setval('fastman.executions_execution_id_seq', (SELECT COALESCE(MAX(execution_id), 1) FROM fastman.executions));
+SELECT setval('fastman.incidents_incident_id_seq', (SELECT COALESCE(MAX(incident_id), 1) FROM fastman.incidents));
+SELECT setval('fastman.inc_executions_inc_execution_id_seq', (SELECT COALESCE(MAX(inc_execution_id), 1) FROM fastman.inc_executions));
+SELECT setval('fastman.site_exceptions_site_exception_id_seq', (SELECT COALESCE(MAX(site_exception_id), 1) FROM fastman.site_exceptions));
+SELECT setval('fastman.inc_actions_inc_action_id_seq', (SELECT COALESCE(MAX(inc_action_id), 1) FROM fastman.inc_actions));
+SELECT setval('fastman.fastman_tasks_fastman_task_id_seq', (SELECT COALESCE(MAX(fastman_task_id), 1) FROM fastman.fastman_tasks));
+--checklist
+SELECT setval('checklist.checklists_templates_id_template_seq', (SELECT COALESCE(MAX(id_template), 1) FROM checklist.checklists_templates));
+SELECT setval('checklist.checklists_head_id_head_seq', (SELECT COALESCE(MAX(id_head_temp), 1) FROM checklist.checklist_head_temps));
+SELECT setval('checklist.checklists_head_statuses_id_head_status_seq', (SELECT COALESCE(MAX(id_head_status), 1) FROM checklist.checklists_head_statuses));
+SELECT setval('checklist.checklists_chapter_id_chapter_seq', (SELECT COALESCE(MAX(id_chapter), 1) FROM checklist.checklists_chapter));
+SELECT setval('checklist.checklists_types_of_answers_id_type_seq', (SELECT COALESCE(MAX(id_type), 1) FROM checklist.checklists_types_of_answers));
+SELECT setval('checklist.checklists_questions_id_question_seq', (SELECT COALESCE(MAX(id_question), 1) FROM checklist.checklist_question_temps));
+SELECT setval('checklist.checklists_question_statuses_id_question_status_seq', (SELECT COALESCE(MAX(id_question_status), 1) FROM checklist.checklists_question_statuses));
+SELECT setval('checklist.checklists_head_tasks_id_head_task_seq', (SELECT COALESCE(MAX(id_head), 1) FROM checklist.checklists_head));
+SELECT setval('checklist.checklists_questions_tasks_id_questions_task_seq', (SELECT COALESCE(MAX(id_questions_task), 1) FROM checklist.checklists_questions));

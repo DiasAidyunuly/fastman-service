@@ -1,0 +1,15 @@
+package kz.magnum.magnumback.fastmanservice.model.pdt.checklist;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class UpdateChecklistPhotoCompletionDto {
+    private String photoCompletion;
+    private String photoExtension;
+}

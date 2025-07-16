@@ -1,0 +1,1 @@
+ALTER TABLE checklist.checklists_questions DROP COLUMN IF EXISTS id_type;

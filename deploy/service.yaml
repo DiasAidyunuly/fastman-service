@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: dev-fastman-service
+  name: dev-fastman-service
+spec:
+  selector:
+    app: dev-fastman-service
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8086
+      targetPort: 8086
+  type: ClusterIP

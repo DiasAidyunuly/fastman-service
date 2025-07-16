@@ -1,0 +1,1 @@
+ALTER TABLE IF EXISTS checklist.checklists_questions ALTER COLUMN photo_completion TYPE varchar(500);

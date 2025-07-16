@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dev-fastman-service
+  name: dev-fastman-service
+spec:
+  replicas: ${REPLICAS}
+  selector:
+    matchLabels:
+      app: dev-fastman-service
+  template:
+    metadata:
+      labels:
+        app: dev-fastman-service
+      annotations:
+        co.elastic.logs/enabled: "true"
+    spec:
+      containers:
+        - image: ${CONTAINER_TAGGED_IMAGE_FASTMAN}
+          imagePullPolicy: IfNotPresent
+          name: dev-fastman-service
+          env:
+            - name: JAVA_OPTS
+              value: "-Xmx1024m -Xms512m"
+            - name: SPRING_PROFILES_ACTIVE
+              value: ${ENV}
+          resources:
+            requests:
+              cpu: "150m"
+              memory: "512Mi"
+            limits:
+              cpu: "300m"
+              memory: "1024Mi"
+      imagePullSecrets:
+        - name: gitlabpdt

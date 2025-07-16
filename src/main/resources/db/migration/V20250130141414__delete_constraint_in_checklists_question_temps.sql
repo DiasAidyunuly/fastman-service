@@ -1,0 +1,5 @@
+ALTER TABLE checklist.checklist_question_temps
+DROP CONSTRAINT checklists_questions_id_head_fkey;
+
+ALTER TABLE checklist.checklist_question_temps
+DROP COLUMN id_head_temp;

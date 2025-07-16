@@ -1,0 +1,87 @@
+image: docker:latest
+services:
+  - docker:dind
+
+cache:
+  paths:
+    - .m2/repository/
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  CONTAINER_TAGGED_IMAGE_FASTMAN: ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}
+
+.set_env: &set_env |
+  if [[ "$CI_COMMIT_REF_NAME" == "main" || "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" == "main" ]]; then
+    export ENV="prod"
+    export KUBE_CONTEXT="terminal-service/fastman-service:fastman-service-prod-big-boy"
+  elif [[ "$CI_COMMIT_REF_NAME" == "develop" || "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" == "develop" ]]; then
+    export ENV="dev"
+    export KUBE_CONTEXT="terminal-service/fastman-service:magnum-back-fastman-special-boy-agent"
+  fi
+  echo "Setting ENV to $ENV"
+
+before_script:
+  - *set_env
+
+stages:
+  - build
+  - dockerize
+  - deploy
+
+build_fastman_service:
+  image: maven:3.8.4-openjdk-11
+  stage: build
+  when: manual
+  tags:
+    - prod-runner
+  script:
+    - mvn install:install-file -Dfile=libs/ojdbc11.jar -DgroupId=com.oracle -DartifactId=ojdbc11 -Dversion=21.1.0.0 -Dpackaging=jar
+    - mvn clean package -Dmaven.repo.local=.m2/repository -Dspring.profiles.active=$ENV
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - target/*.jar
+
+dockerize_fastman_service:
+  stage: dockerize
+  needs:
+    - job: build_fastman_service
+  tags:
+    - prod-runner
+  before_script:
+    - apk add --no-cache docker
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker build -t $CONTAINER_TAGGED_IMAGE_FASTMAN -f Dockerfile .
+    - docker push $CONTAINER_TAGGED_IMAGE_FASTMAN
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - target/*.jar
+
+deploy_fastman_service:
+  image: thisiskj/kubectl-envsubst
+  stage: deploy
+  needs:
+    - job: dockerize_fastman_service
+  variables:
+    REPLICAS: 1
+    JAVA_OPT: $JAVA_OPTIONS
+    SHOW_SQL: $SHOW_SQL
+  before_script:
+    - *set_env
+    - kubectl config get-contexts
+    - kubectl config use-context $KUBE_CONTEXT
+    - kubectl config set-context --current --namespace=${CI_PROJECT_NAME}-${ENV}
+    - kubectl get nodes -o wide
+  script:
+    - export REGISTRY_BASIC=$(echo -n ${CI_DEPLOY_USER}:${CI_DEPLOY_PASSWORD} | base64)
+    - export HOST=${ENV}-fastman-service
+    - cat deploy/namespace.yaml | envsubst | kubectl apply -f -
+    - cat deploy/secret.yaml | envsubst | kubectl apply -f -
+    - cat deploy/deployment.yaml | envsubst | kubectl apply -f -
+    - cat deploy/service.yaml | envsubst | kubectl apply -f -
+    - cat deploy/ingress.yaml | envsubst | kubectl apply -f -
+  when: manual
+  tags:
+    - prod-runner
